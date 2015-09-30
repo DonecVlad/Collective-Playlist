@@ -1,0 +1,26 @@
+extends head
+
+block content
+	#layout
+		form(method='post').fck#reg-form	
+			div(style="font-size: 1.3em; font-weight: bold;")
+				.title(style="float: left; width: 100%;")
+					div(style="float: left;") Регистрация
+					div#response(style="float: right; font-size: 0.7em; line-height: 5px; padding-top: 11px;")
+				input.text(type="text", id="user", name="user", placeholder="Имя пользователя")
+				input.text(type="text", id="email", name="email", placeholder="Email")
+				input.text(type="password", id="password", name="password", placeholder="Пароль")
+				
+				.inline(style='margin:10px 0;')
+					a(href='/login', style="margin-top: 6px; font-size:0.7em;")#forgot-password Уже зарегистрированы?
+					input(type='submit', style="float: right;", value='Я с вами!').big
+
+		.social_login_buttons
+			div(style="margin-bottom: 10px;") Вход через социальные сети
+			//script(type="text/javascript", src="//vk.com/js/api/openapi.js?82")
+			//script(type="text/javascript") VK.init({apiId: 2448444})
+			//#vk_auth			
+			//script(type="text/javascript") VK.Widgets.Auth("vk_auth", {width: "290px", authUrl: '/vklogin.php?'})
+			
+block scripts
+	script(src='/js/views/signup.js')

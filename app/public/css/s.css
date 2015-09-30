@@ -1,0 +1,211 @@
+body {
+  background: none repeat scroll 0 0 transparent;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+body:after {
+  background-image: url("http://pls.webtype.com/v.gif?ct=64120&r=12175&p=11128&h=rFZHzrWahVe137XvLEtf%2bA%3d%3d");
+  content: "";
+}
+#videobcg {
+  bottom: 0;
+  height: auto;
+  min-height: 100%;
+  min-width: 100%;
+  position: fixed;
+  right: 0;
+  width: auto;
+  z-index: -100;
+}
+.main {
+  width: 100%;
+  background: none repeat scroll 0 0 rgba(0,0,0,0.3);
+  display: table;
+  font-family: 'PT Sans', sans-serif;
+  padding-bottom: 15px;
+}
+.main .logo {
+  background-image: url("/img/logo.png");
+  background-repeat: no-repeat;
+  height: 145px;
+  width: 110px;
+  margin: 5px 10px 0 0;
+  color: #fff;
+  float: left;
+  margin: 20px 0 0 20px;
+  position: absolute;
+}
+.main .text {
+  color: #fff;
+  float: left;
+  font-size: 1.2rem;
+  padding: 20px 20px 0 170px;
+}
+.main .text h1 {
+  font-size: 3rem;
+  font-family: 'Josefin Sans', sans-serif;
+  letter-spacing: 0.3rem;
+  margin-top: 0;
+}
+.main .reasons {
+  color: #fff;
+  float: left;
+  font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+  height: 100%;
+  width: 100%;
+}
+.main .reasons .look {
+  width: 1080px;
+  margin: 0 auto;
+}
+.main .reasons .look .why {
+  float: left;
+  margin: 20px;
+  width: 320px;
+  height: 200px;
+  background: none repeat scroll 0 0 rgba(0,0,0,0.5);
+  position: relative;
+}
+.main .reasons .look .why .title {
+  background: none repeat scroll 0 0 rgba(0,0,0,0.2);
+  text-align: center;
+  padding: 5px;
+  font-size: 23px;
+}
+.main .reasons .look .why .tt {
+  padding: 10px;
+}
+.main .reasons .look .why .i0 {
+  background-image: url("/img/mmeet.png");
+}
+.main .reasons .look .why .i1 {
+  background-image: url("/img/follow.png");
+}
+.main .reasons .look .why .i2 {
+  background-image: url("/img/station.png");
+}
+.main .invite {
+  width: 100%;
+  color: #fff;
+  float: left;
+  font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 100;
+}
+.main .invite .sub {
+  margin: 0 auto;
+  padding: 20px 0 20px 170px;
+}
+.main .invite .sub .enter {
+  background: none repeat scroll 0 0 rgba(25,17,76,0.5);
+  float: left;
+  color: #fff;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  transition: background 0.6s ease 0s;
+  border-radius: 3px 0 0 3px;
+  cursor: pointer;
+}
+.main .invite .sub .enter:hover {
+  background: none repeat scroll 0 0 rgba(0,0,0,0.9);
+}
+.main .invite .sub .fields {
+  display: none;
+}
+.main .invite .sub .fields .code {
+  float: left;
+  margin-left: 5px;
+}
+.main .invite .sub .fields .code input {
+  background: none repeat scroll 0 0 rgba(255,255,255,0.5);
+  border: 0 none;
+  color: #fff;
+  font: 17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  padding: 10px;
+  width: 140px;
+}
+.main .invite .sub .fields .email {
+  float: left;
+  margin-left: 5px;
+}
+.main .invite .sub .fields .email input {
+  background: none repeat scroll 0 0 rgba(255,255,255,0.5);
+  border: 0 none;
+  color: #fff;
+  font: 17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  padding: 10px;
+  width: 230px;
+}
+.main .invite .sub .fields .send {
+  background: none repeat scroll 0 0 rgba(25,17,76,0.5);
+  margin-left: 5px;
+  float: left;
+  color: #fff;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  transition: background 0.6s ease 0s;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+}
+.main .invite .sub .fields .send:hover {
+  background: none repeat scroll 0 0 rgba(0,0,0,0.9);
+}
+.main .invite .sub .fields .perfect {
+  background: none repeat scroll 0 0 rgba(17,76,18,0.5);
+  margin-left: 5px;
+  float: left;
+  color: #fff;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  transition: background 0.6s ease 0s;
+  border-radius: 0 3px 3px 0;
+}
+.main .invite .sub .fields .error {
+  background: none repeat scroll 0 0 rgba(76,17,17,0.5);
+  margin-left: 5px;
+  float: left;
+  color: #fff;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+  transition: background 0.6s ease 0s;
+  border-radius: 0 3px 3px 0;
+}
+.mute {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.mute .sub {
+  background-repeat: no-repeat;
+  height: 50px;
+  margin: 0 auto 30px;
+  width: 50px;
+  cursor: pointer;
+  background-image: url("/img/unmute.png");
+}
+.bottom {
+  width: 100%;
+  background: none repeat scroll 0 0 rgba(0,0,0,0.3);
+  display: table;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  font-family: 'Josefin Sans', sans-serif;
+  padding: 3px 0;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75em;
+}
+.bottom a {
+  margin-left: 5px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.5);
+}
+@-moz-document url-prefix() {
+  stuff
+}

@@ -1,0 +1,38 @@
+block content
+	- torrents.length
+	- for (var i = 0; i < torrents.length && i < 3; i++)
+		.torrent
+			.title=torrents[i].r_name+" — "+torrents[i].o_name
+			
+			.data
+				.img
+					img(src="#{torrents[i].poster}")
+				.text=torrents[i].text
+			
+			.comments(id="#{torrents[i].id}")
+				.icon
+				Комментировать
+
+			.date=torrents[i].added
+			
+			.com_data
+			
+				.com_layer
+					.com_img
+						img(src="http://toolmi.org/users/1/1.JPG")
+						
+					.com_info
+						.com_name DonecVlad
+						.com_text Создать идеальные сообщества будет не просто, но оно того стоит.
+						.com_buttons Yesterday at 7:03 pm
+							span.answer Ответить
+																				
+				.com_layer
+					.com_img
+						img(src="http://toolmi.org/users/1/1.JPG")
+						
+					.com_info
+						.com_name DonecVlad
+						.com_text Создать идеальные сообщества будет не просто, но оно того стоит.
+						.com_buttons Yesterday at 4:20 pm
+							span.answer Ответить

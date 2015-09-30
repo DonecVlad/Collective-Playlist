@@ -1,0 +1,16 @@
+block content
+	- torrents.length
+	- for (var i = 0; i < torrents.length && i < 3; i++)
+		.torrent
+			.title=torrents[i].r_name+" — "+torrents[i].o_name
+			
+			.data
+				.img
+					img(src="#{torrents[i].poster}")
+				.text=torrents[i].text
+			
+			.comments(id="#{torrents[i].id}")
+				.icon
+				Комментировать
+
+			.date=torrents[i].added

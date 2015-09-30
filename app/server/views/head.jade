@@ -1,0 +1,46 @@
+- user = typeof(udata) != 'undefined' ? udata : { }
+
+doctype 5
+html
+	head
+		meta( charset= "utf-8")
+		title=title
+		link(rel='stylesheet', href='/css/style.css')
+		script(src='http://code.jquery.com/jquery-1.11.0.min.js')
+		script(src='http://code.jquery.com/ui/1.10.3/jquery-ui.js')
+		script(src='/js/controllers/lController.js')
+		script(src='/socket.io/socket.io.js')
+		script(src='http://vk.com/js/api/openapi.js')
+		link(href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext,latin-ext,cyrillic', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Lato:300,400,700', rel='stylesheet', type='text/css') 
+		script(src='/vendor/jj.js')
+		script(src='/vendor/lastfm.api.js')
+		script(src='/vendor/lastfm.api.md5.js')
+		
+	body
+		#jquery_jplayer_1
+				
+		.h-user
+			ul
+				li
+					#login_button
+						a(href="https://oauth.vk.com/authorize?client_id=4407258&redirect_uri=http://id6.ru&display=page&response_type=token&scope=8", style="cursor:pointer;") Войти
+		.header
+			.player
+				.poster(style='background-color: #5b5d8d;')#play
+					.layer
+						.time
+						.bar
+				.info
+					.track
+						.title
+						.artist
+						.album
+					.right
+						.like#start
+						
+						#jp_container_1
+							#volume.jp-volume-slider(style='margin-top: 10px; width: 95px;')
+									
+		block content
+		block scripts

@@ -1,0 +1,26 @@
+block content
+	.lcol
+		.profile-picture
+			img(src="#{poster}")
+		ul(alt="Автоподборка")#auto-playlists
+			li#queue.nav-item-follow.target(style="margin-bottom:5px;")
+				div Подписаться
+			li#queue.nav-item-container.target
+				.tooltip.fade-out Новости
+			li#queue.nav-item-container.target.selected
+				.tooltip.fade-out Обсуждения
+			li#queue.nav-item-container.target
+				.tooltip.fade-out Изображения
+				
+	.fcencol
+		-if(title)
+			.cname=title
+		.logo-picture
+			.apps_i_run_box#apps_i_run_box(style="opacity: 0.8;") Играть
+			img(src="#{logo}")
+	-if(description)
+		.cencol(style="margin-top:10px;")
+			.tname Описание
+			.description=description
+	.cencol(style="margin-top:10px;")
+		.tname Новости

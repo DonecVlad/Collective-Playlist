@@ -1,0 +1,58 @@
+doctype 5
+html
+	head
+		meta(charset= "utf-8")
+		title=title
+		link(rel='stylesheet', href='/css/s.css')
+		script(src='http://code.jquery.com/jquery-1.11.0.min.js')
+		script(src='/js/controllers/l.js')
+		script(src='http://vk.com/js/api/openapi.js')
+		link(href='http://fonts.googleapis.com/css?family=PT+Sans:700,400&subset=latin,cyrillic-ext,latin-ext,cyrillic', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Oswald', rel='stylesheet', type='text/css')		
+		link(href='http://fonts.googleapis.com/css?family=Josefin+Sans', rel='stylesheet', type='text/css')
+		
+	body
+		video#videobcg(preload="auto", autoplay="true", volume="100", poster="/videos/1.png")
+			source(src="/videos/1.mp4", id="mp4", type="video/mp4")
+			source(src="/videos/1.webm", id="webm", type="video/webm")
+		.main
+			.logo
+			
+			.text
+				h1 ID6.RU
+				p Музыкальная социальная сеть
+				p Добро пожаловать! Мы — команда единомышленников и друзей, которая создала музыкальную социальную сеть своей мечты. В августе мы запускаем бета-тестирование. Введите ваш пргласительный код и станьте первыми участниками портала.
+				
+			.reasons
+				.look
+					.why
+						.title Знакомства
+						.tt О вкусах не спорят! Найди друзей по любимой музыке.
+						.i0(style="background-repeat:no-repeat;bottom:10px;height:47px;width:47px;position:absolute;left:0;right:0;margin-left:auto;margin-right:auto;")
+						
+					.why
+						.title Подписки
+						.tt Будь в курсе! Получай новости, анонсы и фотографии своих любимых исполнителей.
+						.i1(style="background-repeat:no-repeat;bottom:10px;height:50px;width:47px;position:absolute;left:0;right:0;margin-left:auto;margin-right:auto;")
+						
+					.why
+						.title Станции
+						.tt Создавайте и присоединяйтесь к музыкальным трансляциям, добавляйте любимые песни, получайте очки и голосуйте за понравившиеся песни.
+						.i2(style="background-repeat:no-repeat;bottom:10px;height:48px;width:45px;position:absolute;left:0;right:0;margin-left:auto;margin-right:auto;")
+						
+			.invite
+				.sub
+					.enter#show Ввести пригласительный код
+					.fields
+						.code
+							input(type="text", tabindex="1", placeholder="Код", id="code", autocomplete="off")
+						.email
+							input(type="text", tabindex="2", placeholder="Введите свою почту", id="email", autocomplete="off")
+						.send Отправить
+		.mute
+			.sub
+		.bottom © ToolMi Projects 2014
+			a(href="http://vk.com/donec", target="_blank") Vladislav Donets
+		
+		block content
+		block scripts

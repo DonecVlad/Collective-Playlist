@@ -1,0 +1,29 @@
+extends head
+
+block content
+	.lcol
+		.profile-picture
+			img(src="#{photo}")
+		ul(alt="Автоподборка")#auto-playlists
+			li#queue.nav-item-fm.target.FM0
+				div Добавить в друзья
+			li#queue.nav-item-fm.target.FM1(style="margin-bottom:5px;")
+				div Отправить сообщение
+			li#queue.nav-item-container.target
+				.tooltip.fade-out Общие друзья
+			li#queue.nav-item-container.target.selected
+				.tooltip.fade-out Друзья
+			li#queue.nav-item-container.target
+				.tooltip.fade-out Фотографии
+				
+	.fcencol
+		-if(fname)
+			.cname=fname +" "+ sname
+		.logo-picture
+			.apps_i_run_box#apps_i_run_box(style="opacity: 0.8;") Изменить
+			img(src="#{logo}")
+	.cencol(style="margin-top:10px;")
+		.tname Описание
+		.description 4 8 15 16 23 42
+	.cencol(style="margin-top:10px;")
+		.tname Новости
