@@ -17,7 +17,6 @@ app.configure(function(){
 	app.set('views', __dirname + '/app/server/views');
 	app.set('view engine', 'jade');
 	app.locals.pretty = true;
-	//app.use(express.favicon());
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.cookieParser());
@@ -123,19 +122,17 @@ function disconnect(socket) {
 	delete chatClients[socket.id];
 }
 
-
-
 function roomController(socket, data){
 	// Room register
 	if(data.type == 'register') {
 		var tID = generateId();
 		AM.checkOrRegisterUser({vkID:data.id, first_name:data.first_name, last_name:data.last_name, photo:data.photo, clientId:tID}, function(e, o){
 			if(e) {
-				socket.emit('userData', { time:/*e.time*/600 });
+				socket.emit('userData', { time:e.time });
 				//data.clientId = e.clientId;
 				data.clientId = e.clientId;
 			} else {
-				socket.emit('userData', { time:600 });			
+				socket.emit('userData', { time:600 });
 				data.clientId = tID;
 			}
 		});
@@ -159,17 +156,17 @@ function roomController(socket, data){
 					currentSong = 1;
 				}
 			}
-			socket.emit('userData', { time:e });			
+			socket.emit('userData', { time:e });
 		});
 	}
-	
+		
 	if(data.type == 'deleteSong') {
-	    for(var i=0; i<songs.length; i++) {
-	        if(songs[i].sid == data.sID) {
-	            songs.splice(i, 1);
-	            break;
-	        }
-	    }
+		for(var i=0; i<songs.length; i++) {
+			if(songs[i].sid == data.sID) {
+				songs.splice(i, 1);
+				break;
+			}
+		}
 		socket.emit('songCommand', { type:'delete', sid:data.sID });
 		socket.broadcast.to(data.room).emit('songCommand', { type:'delete', sid:data.sID });
 	}
@@ -365,33 +362,31 @@ function points(type, clientId, points, callback) {
 }
 
 function timer(callback, delay) {
-    var id, started, remaining = delay, running;
-    
-    this.start = function() {
-        running = true;
-        started = new Date();
-        id = setTimeout(callback, remaining);
-    }
-    
-    this.pause = function() {
-        running = false;
-        clearTimeout(id);
-        remaining -= new Date() - started;
-    }
-    
-    this.getTimeLeft = function() {
-        if (running) {
-            this.pause();
-            this.start();
-        }
-        return Math.ceil(remaining/1000);
-    }
-    
-    this.getStateRunning = function() {
-        return Math.ceil(running/1000);
-    }
-    
-    this.start();
+	var id, started, remaining = delay, running;
+	
+	this.start = function() {
+		running = true;
+		started = new Date();
+		id = setTimeout(callback, remaining);
+	}
+	
+	this.pause = function() {
+		running = false;
+		clearTimeout(id);
+		remaining -= new Date() - started;
+	}
+	
+	this.getTimeLeft = function() {
+		if (running) {
+			this.pause();
+			this.start();
+		}
+		return Math.ceil(remaining/1000);
+	}
+	
+	this.getStateRunning = function() {
+		return Math.ceil(running/1000);
+	}
+	
+	this.start();
 }
-
-// server.listen(4409);
