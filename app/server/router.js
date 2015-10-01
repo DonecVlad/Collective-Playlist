@@ -6,6 +6,10 @@ module.exports = function(app) {
 		res.render('index', {title : 'Главная', udata : req.session.user});
 	});
 	
+	app.get('/signup', function(req, res) {
+		res.render('signup', {title : 'Регистрация', udata : req.session.user});
+	});	
+	
 	app.get('*', function(req, res) { res.render('404', { title: 'Page Not Found'}); });
 	
 	app.post('/invite', function(req, res) {
