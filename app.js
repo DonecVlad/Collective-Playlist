@@ -4,7 +4,7 @@ var app = express();
 
 var AM = require('./app/server/modules/main-db');
 
-var server = app.listen(80);
+var server = app.listen(8091);
 
 var io = require('socket.io').listen(server);
 
@@ -131,7 +131,8 @@ function roomController(socket, data){
 		var tID = generateId();
 		AM.checkOrRegisterUser({vkID:data.id, first_name:data.first_name, last_name:data.last_name, photo:data.photo, clientId:tID}, function(e, o){
 			if(e) {
-				socket.emit('userData', { time:e.time });
+				socket.emit('userData', { time:/*e.time*/600 });
+				//data.clientId = e.clientId;
 				data.clientId = e.clientId;
 			} else {
 				socket.emit('userData', { time:600 });			
@@ -393,4 +394,4 @@ function timer(callback, delay) {
     this.start();
 }
 
-server.listen(4403);
+// server.listen(4409);
