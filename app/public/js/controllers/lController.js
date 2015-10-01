@@ -29,18 +29,19 @@ $(document).ready(function(){
 	}
 	
 	/* Socket */	
-	var socket = io.connect('http://id6.ru:911');
+	var socket = io.connect('http://id6.ru:8091');
 	
 	VK.init({ apiId: 4407258 });
 	
 	VK.Auth.getLoginStatus(authInfo);
 	
 	function authInfo(response) {
+		alert(response.session)
 	    if (response.session) {
 	        getSongs();
 	        getUser();        
 	    } else {
-	        //$('#login_button').css('display', 'block');
+	        $('#login_button').css({'display': 'block', 'cursor':'pointer'});
 	    }
 	}
 	
@@ -49,7 +50,7 @@ $(document).ready(function(){
 		if(data.type == 'list') {
 			var l = data.songsList.length;
 			for(var e=0;e<l;e++){
-				iSongs.push("" + data.songsList[e].sid + "");			
+				iSongs.push("" + data.songsList[e].sid + "");
 			}
 			getPlaylist();
 		}
