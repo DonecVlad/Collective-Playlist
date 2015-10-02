@@ -7,42 +7,41 @@ $(document).ready(function(){
 	var rPlayer = true;
 	
 	function seconds2time (seconds) {
-	    var hours   = Math.floor(seconds / 3600);
-	    var minutes = Math.floor((seconds - (hours * 3600)) / 60);
-	    var seconds = seconds - (hours * 3600) - (minutes * 60);
-	    var time = "";
+		var hours   = Math.floor(seconds / 3600);
+		var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+		var seconds = seconds - (hours * 3600) - (minutes * 60);
+		var time = "";
 	
-	    if (hours != 0) {
-	      time = hours+":";
-	    }
-	    if (minutes != 0 || time !== "") {
-	      minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
-	      time += minutes+":";
-	    }
+		if (hours != 0) {
+		  time = hours+":";
+		}
+		if (minutes != 0 || time !== "") {
+		  minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
+		  time += minutes+":";
+		}
 		if (time === "") {
 			time = seconds;
 		}
-	    else {
-	      time += (seconds < 10) ? "0"+seconds : String(seconds);
-	    }
-	    return time;
+		else {
+		  time += (seconds < 10) ? "0"+seconds : String(seconds);
+		}
+		return time;
 	}
 	
-	/* Socket */	
-	var socket = io.connect('http://id6.ru:8091');
+	/* Socket */
+	var socket = io.connect('http://id6.ru');
 	
 	VK.init({ apiId: 4407258 });
 	
 	VK.Auth.getLoginStatus(authInfo);
 	
 	function authInfo(response) {
-		alert(response.session)
-	    if (response.session) {
-	        getSongs();
-	        getUser();        
-	    } else {
-	        $('#login_button').css({'display': 'block', 'cursor':'pointer'});
-	    }
+		if (response.session) {
+			getSongs();
+			getUser();
+		} else {
+			$('#login_button').css({'display': 'block', 'cursor':'pointer'});
+		}
 	}
 	
 	// Delete function
@@ -64,66 +63,66 @@ $(document).ready(function(){
 	
 	// All Clients in room
 	socket.on('roomclients', function(data) {
-		var l = data.clients.length;				
+		var l = data.clients.length;
 		for(var e=0;e<l;e++){
 			$("ul#userlist").append("<li id=" + data.clients[e].id + ">" + data.clients[e].first_name + " " + data.clients[e].last_name + "</li>");
 		}
 	});
 	
 	// Online / Offline CLIENTS
-    socket.on('presence', function(data) {
-    	console.log(data);
+	socket.on('presence', function(data) {
+		console.log(data);
 		if(data.state == 'online') {
 			$("ul#userlist").append("<li id=" + data.client.id + ">" + data.client.first_name + " " + data.client.last_name + "</li>");
 		} else {
 			$("li#"+data.client.id).remove();
 		}
-    });
-    
+	});
+	
 	// User Data
-    socket.on('userData', function(data) {
-    	if(data.time){
+	socket.on('userData', function(data) {
+		if(data.time){
 			$(".points > .time").html(seconds2time(data.time));
 		} else {
-			$(".points > .time").css("background-color", "red");			
+			$(".points > .time").css("background-color", "red");
 		}
-    });
-    
-    // Time Data
-    socket.on('c_media', function(data) {    
-    	time = cSong.duration - data.time;
-    	if(data.status == 'play') {    	
-    		if(time - 5 > cSong.time && time + 5 > cSong.time) {
-		    	myPlayer.jPlayer('play', time);
+	});
+	
+	// Time Data
+	socket.on('c_media', function(data) {	
+		time = cSong.duration - data.time;
+		if(data.status == 'play') {		
+			if(time - 5 > cSong.time && time + 5 > cSong.time) {
+				myPlayer.jPlayer('play', time);
 				$(".poster").attr("id","pause");
-	    	} else {
-		    	myPlayer.jPlayer('play');
+			} else {
+				myPlayer.jPlayer('play');
 				$(".poster").attr("id","pause");
-	    	}
-    	} else if(data.status == 'pause') {
-    		if(time - 5 > cSong.time && time + 5 > cSong.time) {
-		    	myPlayer.jPlayer('pause', time);
+			}
+		} else if(data.status == 'pause') {
+			if(time - 5 > cSong.time && time + 5 > cSong.time) {
+				myPlayer.jPlayer('pause', time);
 				$(".poster").attr("id","play");
-	    	} else {
-		    	myPlayer.jPlayer('pause');
+			} else {
+				myPlayer.jPlayer('pause');
 				$(".poster").attr("id","play");
-	    	}
-    	}
-    });
-    
-    socket.on('n_song', function(data) {
+			}
+		}
+	});
+	
+	socket.on('n_song', function(data) {
 		sSong(data.mid);
 		socket.emit('c_media', {});
-    });
-    
-    /* Socket */
-    
-    // VK Stuff
+	});
+	
+	/* Socket */
+	
+	// VK Stuff
 	function afterLogin(response) {
-	    if (response.session) {
-	        getSongs();
-	        getUser();
-	    }
+		if (response.session) {
+			getSongs();
+			getUser();
+		}
 	}
 	
 	// GET USER INFO
@@ -139,7 +138,7 @@ $(document).ready(function(){
 	function getSongs() {
 		VK.Api.call("audio.get", {v:"5.0"}, function(data) {
 			if (data) {
-		        //$('#login_button').css('display', 'none');
+				//$('#login_button').css('display', 'none');
 				var l = data.response.items.length;
 				var sart = [];
 				for(var e=0;e<l;e++){
@@ -290,7 +289,7 @@ $(document).ready(function(){
 
 	}
 
-    $("ul").on('click', '.addSong',function(e) {
+	$("ul").on('click', '.addSong',function(e) {
 		$data = $(this).attr('id');
 		$artist = $(this).children("span.artist").html();
 		$song = $(this).children("span.song").html();
@@ -299,8 +298,8 @@ $(document).ready(function(){
 	});
 	
 	var lastfm = new LastFM({
-	    apiKey    : '75b2164fbf069b64a9bf8318925686b2',
-	    apiSecret : 'fd2addc056b6ce5851a2ebd81ed7ffbc'
+		apiKey	: '75b2164fbf069b64a9bf8318925686b2',
+		apiSecret : 'fd2addc056b6ce5851a2ebd81ed7ffbc'
 	});
 	
 	// Delete / Play / Payse
