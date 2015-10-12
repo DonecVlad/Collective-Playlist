@@ -26,114 +26,71 @@ module.exports = function(app, io) {
 	
 	var chatClients = new Object();
 	var currentSong = 0;
-	
-	/* MANIPILATION */
 	var songs = [];
 	
+	
+	var clients = [];
+	
+	
 	io.on('connection', function (socket) {
-		// after connection, the client sends us the 
-		// nickname through the connect event
 		socket.on('connect', function(data){
-			connect(socket, data);
+			login(socket, data);
 		});
 		
-		// when a client sends a messgae, he emits
-		// this event, then the server forwards the
-		// message to other clients in the same room
 		socket.on('chatmessage', function(data){
 			chatmessage(socket, data);
 		});
-	
-		// Control DATA
+		
 		socket.on('message', function(data){
 			roomController(socket, data);
-		});	
+		});
 		
-		// Control Media
 		socket.on('c_media', function(data){
 			c_media(socket, data);
 		});
 		
-		// client subscribtion to a room
 		socket.on('subscribe', function(data){
 			subscribe(socket, data);
 		});
 		
-		// client unsubscribtion from a room
 		socket.on('unsubscribe', function(data){
 			unsubscribe(socket, data);
 		});
 		
-		// when a client calls the 'socket.close()'
-		// function or closes the browser, this event
-		// is built in socket.io so we actually dont
-		// need to fire it manually
 		socket.on('disconnect', function(){
 			disconnect(socket);
-		});	
-		
-		
+		});
 	});
 	
 	// create a client for the socket
-	function connect(socket, data){
-		//generate clientId
-		/*data.clientId = generateId();
-		
-		// save the client to the hash object for
-		// quick access, we can save this data on
-		// the socket with 'socket.set(key, value)'
-		// but the only way to pull it back will be
-		// async
-		chatClients[socket.id] = data;
-		
-		// auto subscribe the client to the 'lobby'
-		subscribe(socket, { room: 'lobby' });
-		
-		// sends a list of all active rooms in the
-		// server
-		socket.emit('roomslist', { rooms: getRooms() });*/
-	}
-	
-	// when a client disconnect, unsubscribe him from
-	// the rooms he subscribed to
-	function disconnect(socket) {
-		// get a list of rooms for the client
-		
-		var rooms = io.sockets.manager.roomClients[socket.id];
-		
-		// unsubscribe from the rooms
-		for(var room in rooms) {
-			if(room && rooms[room]) {
-				unsubscribe(socket, { room: room.replace('/','') });
-			}
-		}
-	
-		// client was unsubscribed from the rooms,
-		// now we can delete him from the hash object
-		delete chatClients[socket.id];
-	}
-	
-	function roomController(socket, data){
-		// Room register
+	function login(socket, data){
 		if(data.type == 'register') {
 			var tID = generateId();
 			AM.checkOrRegisterUser({vkID:data.id, first_name:data.first_name, last_name:data.last_name, photo:data.photo, clientId:tID}, function(e, o){
 				if(e) {
+					clients.push({ user:e.user, id:e.clientId, socket:socket.id, pID:pID, pos:{x:0, y:0}});
 					socket.emit('userData', { time:e.time });
-					//data.clientId = e.clientId;
 					data.clientId = e.clientId;
 				} else {
 					socket.emit('userData', { time:600 });
 					data.clientId = tID;
 				}
 			});
-			chatClients[socket.id] = data;
-			subscribe(socket, { room: 'lobby' });	
 		}
-		
+	}
+	
+	function disconnect(socket){
+		for(var i = 0; i < clients.length; i++){
+			if(socket[i].socket == socket.id){
+				socket = _.without(socket, socket[i]);
+				console.log("User disconnect:", socket.id);
+			}
+		}
+	}
+	
+	function roomController(socket, data){
 		if(data.type == 'getsongs') {
-			socket.emit('songCommand', { type: 'list', songsList:songs });		
+			socket.emit('songCommand', { type: 'list', songsList:songs });
 		}
 		
 		if(data.type == 'addsong') {
@@ -284,7 +241,7 @@ module.exports = function(app, io) {
 	function getClientsInRoom(socketId, room){
 		// get array of socket ids in this room
 		var socketIds = io.sockets.manager.rooms['/' + room];
-		var clients = [];
+		var clients0 = [];
 		
 		if(socketIds && socketIds.length > 0){
 			socketsCount = socketIds.lenght;
@@ -295,12 +252,12 @@ module.exports = function(app, io) {
 				// check if the socket is not the requesting
 				// socket
 				if(socketIds[i] != socketId) {
-					clients.push(chatClients[socketIds[i]]);
+					clients0.push(chatClients[socketIds[i]]);
 				}
 			}
 		}
 		
-		return clients;
+		return clients0;
 	}
 	
 	// get the amount of clients in aroom
