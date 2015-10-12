@@ -29,7 +29,8 @@ $(document).ready(function(){
 	}
 	
 	/* Socket */
-	var socket = io.connect('http://id6.ru');
+	var socket = io('http://id6.ru:80');
+	
 	
 	VK.init({ apiId: 4407258 });
 	
@@ -128,7 +129,7 @@ $(document).ready(function(){
 	// GET USER INFO
 	function getUser() {
 		VK.Api.call("users.get", {fields:"photo_50"}, function(data) {
-			socket.emit('message', {type:'register', first_name:data.response[0].first_name, last_name:data.response[0].last_name, photo:data.response[0].photo_50, id:data.response[0].uid});
+			socket.emit('connect', {type:'register', first_name:data.response[0].first_name, last_name:data.response[0].last_name, photo:data.response[0].photo_50, id:data.response[0].uid});
 			$(".name").html(data.response[0].first_name + " " + data.response[0].last_name);
 			$(".photo").css("background-image", "url("+data.response[0].photo_50+")");
 		});
