@@ -26,6 +26,9 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 var server = app.listen(80);
+
+server.maxConnections = 200;
+
 var io = require('socket.io').listen(server);
 
 require('./app/server/router')(app, io);
