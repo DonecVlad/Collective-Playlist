@@ -29,6 +29,7 @@ var server = app.listen(80);
 
 server.maxConnections = 200;
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
+server.listen(80);
 
 require('./app/server/router')(app, io);
