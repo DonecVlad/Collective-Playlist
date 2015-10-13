@@ -27,13 +27,10 @@ module.exports = function(app, io) {
 	var chatClients = new Object();
 	var currentSong = 0;
 	var songs = [];
-	
-	
 	var clients = [];
 	
-	
 	io.on('connection', function (socket) {
-		socket.on('connect', function(data){
+		socket.on('fConnect', function(data){
 			login(socket, data);
 		});
 		
