@@ -1,5 +1,5 @@
 var AM = require('./modules/main-db');
-
+var _ = require("underscore");
 var currentTime = 0;
 var timeout, interval;
 
