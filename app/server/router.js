@@ -93,18 +93,21 @@ module.exports = function(app, io) {
 		}
 		
 		if(data.type == 'addsong') {
-			points(0, chatClients[socket.id].clientId, data.duration, function(e) {
-				if(e){
-					songs.push({sid:data.sID, name:data.name, duration:data.duration});
-					socket.broadcast.to(data.room).emit('songCommand', { type:'add', client:chatClients[socket.id], sid:data.sID, name:data.name, duration:data.duration });
-					socket.emit('songCommand', { type:'add', client: chatClients[socket.id], sid:data.sID, name:data.name, duration:data.duration });
-					c_media(socket, data);
-					if(currentSong == 0){
-						nSong(socket, data);
-						currentSong = 1;
+			// HARDCORE!!1
+			getUserBySocket(socket, function(client){
+				points(0, client.clientId, data.duration, function(e) {
+					if(e){
+						songs.push({sid:data.sID, name:data.name, duration:data.duration});
+						socket.broadcast/*.to(data.room)*/.emit('songCommand', { type:'add', client:client, sid:data.sID, name:data.name, duration:data.duration });
+						socket.emit('songCommand', { type:'add', client:client, sid:data.sID, name:data.name, duration:data.duration });
+						c_media(socket, data);
+						if(currentSong == 0){
+							nSong(socket, data);
+							currentSong = 1;
+						}
 					}
-				}
-				socket.emit('userData', { time:e });
+					socket.emit('userData', { time:e });
+				});
 			});
 		}
 			
@@ -337,5 +340,14 @@ module.exports = function(app, io) {
 		}
 		
 		this.start();
+	}
+	
+	// HARDCORE!!1
+	function getUserBySocket(socket, callback){
+		for(var i = 0; i < clients.length; i++){
+			if(clients[i].socket == socket.id){
+				callback(clients[i]);
+			}
+		}
 	}
 }
