@@ -65,7 +65,8 @@ module.exports = function(app, io) {
 			var tID = generateId();
 			AM.checkOrRegisterUser({vkID:data.id, first_name:data.first_name, last_name:data.last_name, photo:data.photo, clientId:tID}, function(e, o){
 				if(e) {
-					clients.push({ user:e.user, id:e.clientId, socket:socket.id, pID:pID, pos:{x:0, y:0}});
+					clients.push({ clientId:e.clientId, socket:socket.id});
+					console.log(e);
 					socket.emit('userData', { time:e.time });
 					data.clientId = e.clientId;
 				} else {
