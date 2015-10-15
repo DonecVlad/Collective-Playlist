@@ -119,7 +119,7 @@ module.exports = function(app, io) {
 				}
 			}
 			socket.emit('songCommand', { type:'delete', sid:data.sID });
-			socket.broadcast.to(data.room).emit('songCommand', { type:'delete', sid:data.sID });
+			socket.broadcast/*.to(data.room)*/.emit('songCommand', { type:'delete', sid:data.sID });
 		}
 		
 	}
@@ -132,15 +132,14 @@ module.exports = function(app, io) {
 	var tAmer;
 	
 	function c_media(socket, data) {
-	
-		if(conRoom.status == 'stop' && io.sockets.manager.rooms['/' + room] && io.sockets.manager.rooms['/' + room].length > 0 && songs.length > 0) {
+		if(conRoom.status == 'stop') {
 			tAmer = new timer(function() {}, songs[0].duration*1000);
 			conRoom.status = 'play';
 		}
 		
 		if(data.action == 'play') {
 			tAmer.start();
-			conRoom.status = 'play';	
+			conRoom.status = 'play';
 		}
 		
 		if(data.action == 'pause') {
@@ -165,7 +164,8 @@ module.exports = function(app, io) {
 	}
 	
 	function sendMC(socket, data){
-		socket.broadcast.to(data.room).emit('c_media', { time: tAmer.getTimeLeft(), status:conRoom.status });
+		//TIME FIX
+		socket.broadcast/*.to(data.room)*/.emit('c_media', { time: tAmer.getTimeLeft(), status:conRoom.status });
 		socket.emit('c_media', { time:tAmer.getTimeLeft(), status:conRoom.status });
 	}
 	
@@ -175,7 +175,7 @@ module.exports = function(app, io) {
 			conRoom.status = 'stop';
 		}
 		if(songs.length > 0) {
-			socket.broadcast.to(data.room).emit('n_song', { mid:songs[0].sid });		
+			socket.broadcast/*.to(data.room)*/.emit('n_song', { mid:songs[0].sid });
 			socket.emit('n_song', { mid:songs[0].sid });
 		} else {
 			currentSong = 0;
@@ -283,7 +283,7 @@ module.exports = function(app, io) {
 		// by using 'socket.broadcast' we can send/emit
 		// a message/event to all other clients except
 		// the sender himself
-		socket.broadcast.to(room).emit('presence', { client:chatClients[socket.id], state:state, room:room });
+		socket.broadcast/*.to(room)*/.emit('presence', { client:chatClients[socket.id], state:state, room:room });
 	}
 	
 	// Some Functions
