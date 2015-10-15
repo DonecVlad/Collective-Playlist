@@ -21,8 +21,7 @@ $(document).ready(function(){
 		}
 		if (time === "") {
 			time = seconds;
-		}
-		else {
+		} else {
 		  time += (seconds < 10) ? "0"+seconds : String(seconds);
 		}
 		return time;
@@ -80,6 +79,7 @@ $(document).ready(function(){
 	
 	// User Data
 	socket.on('userData', function(data) {
+		console.log(data);
 		if(data.time){
 			$(".points > .time").html(seconds2time(data.time));
 		} else {
