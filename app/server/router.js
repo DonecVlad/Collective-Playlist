@@ -70,6 +70,7 @@ module.exports = function(app, io) {
 					socket.emit('userData', { time:e.time });
 					data.clientId = e.clientId;
 				} else {
+					console.log(e);
 					socket.emit('userData', { time:600 });
 					data.clientId = tID;
 				}
@@ -79,7 +80,7 @@ module.exports = function(app, io) {
 	
 	function disconnect(socket){
 		for(var i = 0; i < clients.length; i++){
-			if(socket[i].socket == socket.id){
+			if(clients[i].socket == socket.id){
 				socket = _.without(socket, socket[i]);
 				console.log("User disconnect:", socket.id);
 			}
