@@ -40,11 +40,6 @@ exports.checkOrRegisterUser = function(newData, callback)
 	});
 }
 
-//SID
-//NAME
-//ARTIST
-//ALBUM
-
 // ADD NEW ARTIST OR GET EXIST
 exports.gArtist = function(sData, callback)
 {
@@ -94,7 +89,7 @@ exports.iNvite = function(code, email, callback)
 		if (o == null){
 			beta.insert({code:code, email:email}, {safe: true}, callback);
 		} else {
-			callback('exist');			
+			callback('exist');
 		}
 	});
 }
